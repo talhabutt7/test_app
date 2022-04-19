@@ -31,9 +31,7 @@ class PhotosController < ApplicationController
     end
   end
 
-  def show
-    render json: @photo, status: :ok
-  end
+  def show; end
 
   private
 
