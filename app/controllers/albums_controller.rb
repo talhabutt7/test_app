@@ -30,13 +30,7 @@ class AlbumsController < ApplicationController
     end
   end
 
-  def show
-    @photos = @album.photos
-    render json: {
-      album: @album,
-      photos: @photos
-    }, status: :ok
-  end
+  def show; end
 
   private
 
