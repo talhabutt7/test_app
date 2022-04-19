@@ -3,7 +3,6 @@ class PhotosController < ApplicationController
 
   def index
     @photos = Photo.all
-    render json: @photos
   end
 
   def create
@@ -11,7 +10,7 @@ class PhotosController < ApplicationController
     if @photo.save
       render json: @photo, status: :ok
     else
-      render json: @photo, status: :unprocessable_entity
+      render json: @photo.errors, status: :unprocessable_entity
     end
   end
 
