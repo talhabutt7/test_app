@@ -16,7 +16,6 @@ class PhotosController < ApplicationController
   end
 
   def update
-    render json: 'Record not found', status: :unprocessable_entity unless @photo
     if @photo.update(photo_params)
       render json: @photo, status: :ok
     else
