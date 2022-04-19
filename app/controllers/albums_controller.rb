@@ -1,4 +1,5 @@
 class AlbumsController < ApplicationController
+  before_action :set_album, only: [:show, :destroy, :update]
 
   def index
     @albums = Album.all.includes(:photos)
@@ -14,7 +15,6 @@ class AlbumsController < ApplicationController
   end 
 
   def update
-    @album = Album.find_by(id: params[:id])
     render json: 'Record not found', status: :unproccessable_entity unless @album
     if @album.update(album_params)
       render json: @album, status: :ok
@@ -24,7 +24,6 @@ class AlbumsController < ApplicationController
   end
 
   def destroy
-    @album = Album.find_by(id: params[:id])
     if @album&.destroy
       render json: 'Record Deleted ', status: :ok
     else
@@ -32,10 +31,20 @@ class AlbumsController < ApplicationController
     end
   end
 
+  def show
+    render json: @album, status: :ok
+  end
+
   private
 
   def album_params
     params.permit(:name, photos_attributes: [:id, :name, :image])
+  end
+
+  def set_album
+    unless @album ||= ::Album.find_by(id: params[:id])
+      render_not_found(:appointment, I18n.t('render.errors.auth.appointment_id'), :id)
+    end
   end
 
 
