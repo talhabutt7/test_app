@@ -4,6 +4,6 @@ json.array!(@albums) do |album|
   json.photos album.photos do |photo|
     json.id photo.id
     json.name photo.name
-    json.url photo.image? ? url_for(photo.image): ''
+    json.url photo.image? ? photo.image.url : ''
   end
 end
