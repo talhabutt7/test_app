@@ -1,4 +1,4 @@
-json.photos @photos do |photo|
+json.array! @photos do |photo|
   json.id photo.id
   json.album_name photo.album.name
   json.photo_name photo.name
