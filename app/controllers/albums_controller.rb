@@ -15,7 +15,6 @@ class AlbumsController < ApplicationController
   end 
 
   def update
-    render json: 'Record not found', status: :unprocessable_entity unless @album
     if @album.update(album_params)
       render json: @album, status: :ok
     else
@@ -32,7 +31,11 @@ class AlbumsController < ApplicationController
   end
 
   def show
-    render json: @album, status: :ok
+    @photos = @album.photos
+    render json: {
+      album: @album,
+      photos: @photos
+    }, status: :ok
   end
 
   private
