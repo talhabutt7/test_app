@@ -11,16 +11,16 @@ class PhotosController < ApplicationController
     if @photo.save
       render json: @photo, status: :ok
     else
-      render json: @photo, status: :unproccessable_entity
+      render json: @photo, status: :unprocessable_entity
     end
   end
 
   def update
-    render json: 'Record not found', status: :unproccessable_entity unless @photo
+    render json: 'Record not found', status: :unprocessable_entity unless @photo
     if @photo.update(photo_params)
       render json: @photo, status: :ok
     else
-      render json: @photo.errors, status: :unproccessable_entity
+      render json: @photo.errors, status: :unprocessable_entity
     end
   end
 
@@ -28,7 +28,7 @@ class PhotosController < ApplicationController
     if @photo&.destroy
       render json: 'Record Deleted ', status: :ok
     else
-      render json: 'Something went wrong', status: :unproccessable_entity
+      render json: 'Something went wrong', status: :unprocessable_entity
     end
   end
 
@@ -44,7 +44,7 @@ class PhotosController < ApplicationController
 
   def set_photo
     unless @photo ||= ::Photo.find_by(id: params[:id])
-      render_not_found(:appointment, I18n.t('render.errors.auth.appointment_id'), :id)
+      render json: 'No such record exist', status: :unprocessable_entity
     end
   end
 

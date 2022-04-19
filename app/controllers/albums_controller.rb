@@ -10,16 +10,16 @@ class AlbumsController < ApplicationController
     if @album.save
       render json: @album, status: :ok
     else
-      render json: @album.errors, status: :unproccessable_entity
+      render json: @album.errors, status: :unprocessable_entity
     end
   end 
 
   def update
-    render json: 'Record not found', status: :unproccessable_entity unless @album
+    render json: 'Record not found', status: :unprocessable_entity unless @album
     if @album.update(album_params)
       render json: @album, status: :ok
     else
-      render json: @album.errors, status: :unproccessable_entity
+      render json: @album.errors, status: :unprocessable_entity
     end
   end
 
@@ -27,7 +27,7 @@ class AlbumsController < ApplicationController
     if @album&.destroy
       render json: 'Record Deleted ', status: :ok
     else
-      render json: 'Something went wrong', status: :unproccessable_entity
+      render json: 'Something went wrong', status: :unprocessable_entity
     end
   end
 
@@ -43,7 +43,7 @@ class AlbumsController < ApplicationController
 
   def set_album
     unless @album ||= ::Album.find_by(id: params[:id])
-      render_not_found(:appointment, I18n.t('render.errors.auth.appointment_id'), :id)
+      render json: 'No such record exist', status: :unprocessable_entity
     end
   end
 
